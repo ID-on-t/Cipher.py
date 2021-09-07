@@ -136,7 +136,3 @@ class Cipher:
             raise TypeError(
                 str(type(string)).replace("<class '", "").replace("'>", "") + " is given but string should be given")
     ####################################################################################################################
-
-
-ci = Cipher("hallo")
-ci.out_sentence()
