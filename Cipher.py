@@ -18,11 +18,50 @@ class Cipher:
     def out_sentence(self):
         print(self.sentence)
 
+    #
+    ####################################################################################################################
+    def enc_letter_to_number(self):
+        Cipher.check_letter_number_list()
+        Cipher.string_check(self.sentence)
+        new_sentence = ""
+        len_last_number = len(str(Cipher.letter_number_list[1][-1]))
+        for letter in self.sentence:
+            number = str(Cipher.letter_number_list[1][Cipher.letter_number_list[0].index(letter)])
+            number_len = len(number)
+            zero_add = len_last_number - number_len
+            new_sentence = new_sentence + ((zero_add * "0") + number)
+        self.sentence = new_sentence
+        return self.sentence
+
+    def dec_letter_to_number(self):
+        Cipher.check_letter_number_list()
+        Cipher.string_check(self.sentence)
+        new_sentence = ""
+        number_list = []
+        len_last_number = len(str(Cipher.letter_number_list[1][- 1]))
+        counter = 1
+        letter_single = ""
+        for number in self.sentence:
+            if counter <= len_last_number:
+                letter_single = letter_single + number
+                counter += 1
+            else:
+                number_list.append(int(letter_single))
+                letter_single = number
+                counter = 2
+        number_list.append(int(letter_single))
+        for number in number_list:
+            new_sentence = new_sentence + Cipher.letter_number_list[0][Cipher.letter_number_list[1].index(int(number))]
+        self.sentence = new_sentence
+        return self.sentence
+    ####################################################################################################################
+
     # Caesar_Cipher shifts the letter with the shift_number
     ####################################################################################################################
     def enc_caesar_cipher(self, shift_number):
         Cipher.integer_check(shift_number)
         Cipher.check_letter_number_list()
+        Cipher.string_check(self.sentence)
         new_sentence = ""
         len_list = len(Cipher.letter_number_list[0])
         for letter in self.sentence:
@@ -40,6 +79,7 @@ class Cipher:
     def dec_caesar_cipher(self, shift_number):
         Cipher.integer_check(shift_number)
         Cipher.check_letter_number_list()
+        Cipher.string_check(self.sentence)
         new_sentence = ""
         len_list = len(Cipher.letter_number_list[0])
         for letter in self.sentence:
@@ -54,6 +94,11 @@ class Cipher:
         self.sentence = new_sentence
         return self.sentence
     ####################################################################################################################
+
+    @classmethod
+    def create_letter_number_list(cls, letters, numbers):
+        # Check for right Variable
+        pass
 
     # Checks if letter_number_list is set right
     ####################################################################################################################
