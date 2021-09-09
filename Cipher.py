@@ -18,7 +18,7 @@ class Cipher:
     def out_sentence(self):
         print(self.sentence)
 
-    #
+    # Swaps the letter for the counterpart number
     ####################################################################################################################
     def enc_letter_to_number(self):
         Cipher.check_letter_number_list()
@@ -94,11 +94,14 @@ class Cipher:
         self.sentence = new_sentence
         return self.sentence
     ####################################################################################################################
-
+    
+    # Coming soon
+    ####################################################################################################################
     @classmethod
     def create_letter_number_list(cls, letters, numbers):
         # Check for right Variable
         pass
+    ####################################################################################################################
 
     # Checks if letter_number_list is set right
     ####################################################################################################################
