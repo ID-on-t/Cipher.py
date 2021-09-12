@@ -15,13 +15,41 @@ class Cipher:
     def __init__(self, sentence):
         self.sentence = sentence
 
+    # OUT
+    ####################################################################################################################
     def out_sentence(self):
         print(self.sentence)
 
-    # Swaps the letter for the counterpart number
+    def out_letter_number_list(self):
+        output = ""
+        for letter in self.letter_number_list[0]:
+            output = output + "\n" + f"{letter} = {self.letter_number_list[1][self.letter_number_list[0].index(letter)]}"
+        print(output)
     ####################################################################################################################
+
+    # CREATE
+    ####################################################################################################################
+    def create_letter_number_list(self, letter_str_or_list):
+        parameter_type = str(type(letter_str_or_list))
+        letter_number_list = [[], []]
+        counter = 1
+        if parameter_type == "<class 'str'>" or parameter_type == "<class 'list'>":
+            for letter in letter_str_or_list:
+                letter_number_list[0].append(letter)
+                letter_number_list[1].append(counter)
+                counter += 1
+        else:
+            raise TypeError("parameter is not str or list")
+        Cipher.check_letter_number_list(letter_number_list)
+        self.letter_number_list = letter_number_list
+        return self.letter_number_list
+    ####################################################################################################################
+
+    # ENC DEC
+    ####################################################################################################################
+    # Swaps Letter with Number and Number with Letter
     def enc_letter_to_number(self):
-        Cipher.check_letter_number_list()
+        Cipher.check_letter_number_list(Cipher.letter_number_list)
         Cipher.string_check(self.sentence)
         new_sentence = ""
         len_last_number = len(str(Cipher.letter_number_list[1][-1]))
@@ -34,7 +62,7 @@ class Cipher:
         return self.sentence
 
     def dec_letter_to_number(self):
-        Cipher.check_letter_number_list()
+        Cipher.check_letter_number_list(Cipher.letter_number_list)
         Cipher.string_check(self.sentence)
         new_sentence = ""
         number_list = []
@@ -54,13 +82,11 @@ class Cipher:
             new_sentence = new_sentence + Cipher.letter_number_list[0][Cipher.letter_number_list[1].index(int(number))]
         self.sentence = new_sentence
         return self.sentence
-    ####################################################################################################################
 
     # Caesar_Cipher shifts the letter with the shift_number
-    ####################################################################################################################
     def enc_caesar_cipher(self, shift_number):
         Cipher.integer_check(shift_number)
-        Cipher.check_letter_number_list()
+        Cipher.check_letter_number_list(Cipher.letter_number_list)
         Cipher.string_check(self.sentence)
         new_sentence = ""
         len_list = len(Cipher.letter_number_list[0])
@@ -78,7 +104,7 @@ class Cipher:
 
     def dec_caesar_cipher(self, shift_number):
         Cipher.integer_check(shift_number)
-        Cipher.check_letter_number_list()
+        Cipher.check_letter_number_list(Cipher.letter_number_list)
         Cipher.string_check(self.sentence)
         new_sentence = ""
         len_list = len(Cipher.letter_number_list[0])
@@ -94,39 +120,41 @@ class Cipher:
         self.sentence = new_sentence
         return self.sentence
     ####################################################################################################################
-    
-    # Coming soon
-    ####################################################################################################################
-    @classmethod
-    def create_letter_number_list(cls, letters, numbers):
-        # Check for right Variable
-        pass
-    ####################################################################################################################
 
-    # Checks if letter_number_list is set right
+    # CHECK
     ####################################################################################################################
+    # Check letter number list
     @classmethod
-    def check_letter_number_list(cls):
-        if len(Cipher.letter_number_list[0]) == len(Cipher.letter_number_list[1]):
-            counter = 1
-            for number in Cipher.letter_number_list[1]:
-                if number == counter:
-                    counter += 1
-                else:
-                    raise ValueError("numbers should start at 1 and raise by 1 every time")
-            for letter in Cipher.letter_number_list[0]:
-                if len(letter) == 1:
-                    if Cipher.letter_number_list[0].count(letter) == 1:
-                        pass
-                    else:
-                        raise NameError("only one letter of a kind can be stored")
-                else:
-                    raise ValueError("only one letter per number can be stored")
+    def check_letter_number_list(cls, list):
+        if len(list[0]) == len(list[1]):
+            pass
         else:
-            raise IndexError("length of both lists should be the same")
+            raise IndexError("more letters or numbers. letters and numbers should have the same number of indexes")
+        counter = 1
+        for letter in list[0]:
+            if str(type(letter)) == "<class 'str'>":
+                pass
+            else:
+                raise TypeError("letters should be from type str")
+            if len(letter) == 1:
+                pass
+            else:
+                raise ValueError("to much letters in one index. should be one letter per index")
+            if list[0].count(letter) == 1:
+                pass
+            else:
+                raise ValueError("there should be no letter duplicate")
+        for number in list[1]:
+            if str(type(number)) == "<class 'int'>":
+                pass
+            else:
+                raise TypeError("numbers should be from type int")
+            if number == counter:
+                counter += 1
+            else:
+                raise ValueError("numbers should start at 1 and raise everytime by 1")
 
     # Check for right input Types
-    ####################################################################################################################
     @classmethod
     def tuple_check(cls, tuple):
         tuple_bool = str(type(tuple)) == "<class 'tuple'>"
