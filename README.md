@@ -9,6 +9,8 @@ Installing the Module
 
 To install the Module you need to download the Cipher.py file and put it in to your Directory where your 
 main Python file is.
+
+(pip install is cooming soon)
 #
 #
 #
