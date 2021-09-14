@@ -7,10 +7,8 @@ I hope you all have fun and can use it as easy and custom as i want it to be :)
 #
 Installing the Module
 
-To install the Module you need to download the Cipher.py file and put it in to your Directory where your 
-main Python file is.
-
-(pip install is cooming soon)
+To install the Module you need to open your CMD and type
+pip install cipher_encdec
 #
 #
 #
@@ -18,7 +16,7 @@ Importing Module
 
 To import it into your main Python file you need to type in 
 
-from Cipher import Cipher
+from cipher_secure import Cipher
 
 And now its ready to use.
 #
