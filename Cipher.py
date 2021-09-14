@@ -15,6 +15,9 @@ class Cipher:
     def __init__(self, sentence):
         self.sentence = sentence
 
+    def __repr__(self):
+        return f"Variable that gets ENC/DEC is \"{self.sentence}\""
+
     # OUT
     ####################################################################################################################
     def out_sentence(self):
@@ -29,6 +32,7 @@ class Cipher:
 
     # CREATE
     ####################################################################################################################
+    # Creates a Letter Number List
     def create_letter_number_list(self, letter_str_or_list):
         parameter_type = str(type(letter_str_or_list))
         letter_number_list = [[], []]
@@ -47,6 +51,77 @@ class Cipher:
 
     # ENC DEC
     ####################################################################################################################
+    # Uses Columns to recombine Letters
+    def enc_columns(self, column_number):
+        Cipher.integer_check(column_number)
+        column_list = []
+        if column_number <= 0:
+            raise ValueError("column cant be 0 or less")
+        else:
+            pass
+        count = 0
+        while count != column_number:
+            column_list.append([])
+            count += 1
+        count= 0
+        for letter in self.sentence:
+            if count != column_number:
+                column_list[count].append(letter)
+                count += 1
+            else:
+                count = 0
+                column_list[count].append(letter)
+                count += 1
+        count = 0
+        new_sentence = ""
+        while count != column_number:
+            for letter in column_list[count]:
+                new_sentence = new_sentence + letter
+            count += 1
+        self.sentence = new_sentence
+        return self.sentence
+
+    def dec_columns(self, column_number):
+        Cipher.integer_check(column_number)
+        sentence_len = len(self.sentence)
+        column_len = int(sentence_len / column_number)
+        column_len_rest = int(sentence_len % column_number)
+        number_list = []
+        column_list = []
+        count = 0
+        while count != column_number:
+            column_list.append([])
+            number_list.append([])
+            count += 1
+        count = 0
+        while count != column_number:
+            number_list[count].append(column_len)
+            if count < column_len_rest:
+                number_list[count][0] = number_list[count][0] + 1
+                count += 1
+            else:
+                count += 1
+        counter_plus = 0
+        counter = 0
+        for number in number_list:
+            count = 0
+            while count != number[0]:
+                column_list[counter_plus].append(self.sentence[counter])
+                counter += 1
+                count += 1
+            counter_plus += 1
+        new_sentence = ""
+        current_index = 0
+        while current_index != number_list[0][0]:
+            for list in column_list:
+                try:
+                    new_sentence = new_sentence + list[current_index]
+                except:
+                    pass
+            current_index += 1
+        self.sentence = new_sentence
+        return self.sentence
+
     # Swaps Letter with Number and Number with Letter
     def enc_letter_to_number(self):
         Cipher.check_letter_number_list(Cipher.letter_number_list)
