@@ -23,4 +23,4 @@ And now its ready to use.
 #
 #
 #
-If you have any wishes or constructive feedback or a bug just hit me with Pullrequests :)
+If you have any wishes or constructive feedback or a bug just hit me with Pullrequests or just tell me in the Discussions tab :)
